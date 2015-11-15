@@ -63,9 +63,9 @@ void setup(void)
   tlc.begin();
   tlc.write();
   
-  g_R0.setup_rampe(0, 65535, 500);
-  g_G2.setup_rampe(65535, 0, 500);
-  g_R3.setup_scintille(0, 25000);
+  //g_R0.setup_rampe(0, 65535, 500);
+  g_G2.setup_scintille(30000, 65000);
+  g_R3.setup_scintille(25000, 55000);
   
 }
 
