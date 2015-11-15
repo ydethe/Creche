@@ -25,6 +25,8 @@ public:
    void allume(uint16_t intensite);
    void eteind();
    
+   void setup_scintille(uint16_t lux_debut, uint16_t lux_fin);
+   
    void setup_rampe(uint16_t lux_debut, uint16_t lux_fin, int duree_ms);
    
    int update();

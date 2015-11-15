@@ -48,6 +48,7 @@ int att;
 // Pour mémoire, le module acheté permet de gérer 12 lignes de LEDs
 Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711, clock, data); // création de l'objet tlc permettant de faire des actions sur le support LED (définis dans le .h)
 Guirlande g_R0 = Guirlande(&tlc, 0, RED);
+Guirlande g_R3 = Guirlande(&tlc, 3, RED);
 Guirlande g_G2 = Guirlande(&tlc, 2, GREEN); // 2 : numéro du bloc, 1 = G (0=R
 
 // Cette fonction n'est appelée qu'une seule fois
@@ -64,7 +65,8 @@ void setup(void)
   
   g_R0.setup_rampe(0, 65535, 500);
   g_G2.setup_rampe(65535, 0, 500);
-   
+  g_R3.setup_scintille(0, 25000);
+  
 }
 
 // Cette fonction est appelée en boucle à la fréquence du processeur (16MHz)
@@ -74,6 +76,7 @@ void loop(void)
   player.play();  //do some leisurely job
   
   att = g_R0.update();
+  att = g_R3.update();
   att = g_G2.update();
   delay(att);
 
