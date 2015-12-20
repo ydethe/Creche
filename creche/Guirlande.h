@@ -4,7 +4,6 @@
 #ifndef _GUIRLANDE_H
 #define _GUIRLANDE_H
 
-const uint16_t NB_CASES=50;
 #define PERIODE_MAX 0.5
 
 typedef enum {RED, GREEN, BLUE} Couleur;
@@ -15,8 +14,7 @@ private:
    int m_num_block;
    Couleur m_coul;
    Adafruit_TLC59711* m_tlc;
-   uint16_t m_sequentiel[NB_CASES];
-   int m_pos_tableau;
+   uint16_t m_niv_min, m_niv_max;
    
 public:
    Guirlande(Adafruit_TLC59711* tlc, int num_block, Couleur coul);
@@ -25,12 +23,10 @@ public:
    void allume(uint16_t intensite);
    void eteind();
    
+   // lux_debut et lux_fin doivent être compris entre 0 et 65535
    void setup_scintille(uint16_t lux_debut, uint16_t lux_fin);
    
-   void setup_rampe(uint16_t lux_debut, uint16_t lux_fin, int duree_ms);
-   
    int update();
-   void reset();
    
 };
 

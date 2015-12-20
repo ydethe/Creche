@@ -50,7 +50,7 @@ Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711, clock, data); // créati
 Guirlande g_R0 = Guirlande(&tlc,0,RED);
 Guirlande g_G0 = Guirlande(&tlc,0,GREEN);
 Guirlande g_R1 = Guirlande(&tlc,1,RED);
-//Guirlande g_G1 = Guirlande(&tlc,1,GREEN);
+  Guirlande g_G1 = Guirlande(&tlc,1,GREEN);
 Guirlande g_R3 = Guirlande(&tlc,3,RED);
 //Guirlande g_G3 = Guirlande(&tlc,3,GREEN); // 2 : numéro du bloc, 1 = G (0=R
 
@@ -70,7 +70,7 @@ void setup(void)
   g_R0.setup_scintille(55000,65000);
   g_G0.setup_scintille(55000,65000);
   g_R1.setup_scintille(45000,65000);
-  //g_G1.setup_scintille(45000,65000);
+  g_G1.setup_scintille(45000,65000);
   g_R3.setup_scintille(55000,55000);
   //g_G3.setup_scintille(45000,65000);
   
@@ -85,7 +85,7 @@ void loop(void)
   att = g_R0.update();
   att = g_G0.update();
   att = g_R1.update();
- //att = g_G1.update();
+  att = g_G1.update();
   att = g_R3.update();
   //att = g_G3.update();
   delay(att);

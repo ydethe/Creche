@@ -5,10 +5,6 @@ Guirlande::Guirlande(Adafruit_TLC59711* tlc, int num_block, Couleur coul) {
    m_tlc = tlc;
    m_num_block = num_block;
    m_coul = coul;
-   m_pos_tableau = 0;
-   for (int i=0; i<NB_CASES; i++) {
-      m_sequentiel[i] = 0;
-   }
 }
 
 
@@ -33,70 +29,20 @@ void Guirlande::eteind() {
    
 }
 
-void Guirlande::setup_rampe(uint16_t lux_debut, uint16_t lux_fin, int duree_ms) {
-   float nb_lux;
-   int attente;
-   float f_deb,f_fin;
-   float quantum;
-   uint16_t lux_cmd;
-   
-   f_deb = float(min(max(1, lux_debut),65534));
-   f_fin = float(min(max(1, lux_fin),65534));
-   nb_lux = min(float(duree_ms)/1000./PERIODE_MAX*NB_CASES, NB_CASES-1); // On empeche que la rampe prenne plus que NB_CASES-1 cases
-   quantum = (f_fin - f_deb)/nb_lux;
-   
-   for (int i=0; i<int(nb_lux); i++)
-   {
-      lux_cmd = lux_debut + uint16_t(quantum*i);
-      
-      // On borne le lux entre 1 et 65534
-      m_sequentiel[i] = min(max(1, lux_cmd),65534);
-      Serial.println(m_sequentiel[i]);
-   }
-   
-   for (int i=int(nb_lux); i<NB_CASES; i++)
-   {
-      // Les lux nuls signifient : "retour au d�but du tableau"
-      m_sequentiel[i] = 0;
-   }
-   
-}
-
 void Guirlande::setup_scintille(uint16_t lux_debut, uint16_t lux_fin) {
-   long nb_aleat;
-   uint16_t f_deb,f_fin;
-  
-   f_deb = min(max(1, lux_debut),65534);
-   f_fin = min(max(1, lux_fin),65534);
-   
-   for (int i=0; i<NB_CASES-1; i++)
-   {
-      nb_aleat = random(f_deb, f_fin);
-      // Les lux nuls signifient : "retour au d�but du tableau"
-      m_sequentiel[i] = nb_aleat;
-   }
-   m_sequentiel[NB_CASES-1] = 0;
+   m_niv_min = lux_debut;
+   m_niv_max = lux_fin;
 }
 
 int Guirlande::update() {
-   int attente;
+   int lux;
    
-   uint16_t lux = m_sequentiel[m_pos_tableau];
-   attente = int(PERIODE_MAX*1000./NB_CASES);
+   lux = random(m_niv_min,m_niv_max);
    
-   if (lux == 0) {
-      Guirlande::reset();
-   } else {
-      Guirlande::allume(lux);
-      m_pos_tableau++;
-   }
+   Guirlande::allume(lux);
    
-   return attente;
+   return 10;
    
-}
-
-void Guirlande::reset() {
-   m_pos_tableau=0;
 }
 
 
