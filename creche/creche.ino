@@ -36,23 +36,20 @@
 #include <SPI.h>               // bus entre carte mere et le support LED (circuit TLC 59711)
 #include "Guirlande.h"               // bus entre carte mere et le support LED (circuit TLC 59711)
 
-#define NUM_TLC59711 1         // nombre de support LED chainés en série 
+#define NUM_TLC59711 1        // nombre de support LED chainés en série 
 #define data   2              // numéro du port de la carte mÃ¨re donnant la data
 #define clock  9              // numéro du port de la carte mÃ¨re donnant le clock
-
-long probaflamme;
-int att;
+#define inc_tps 10            // temps minimal en millisecondes entre deux changement d'état des LEDs
 
 // La variable tlc désigne le driver de LEDs :
 // il fournit des fonctions toutes faites qui permettent de manipuler les lignes de LEDs
 // Pour mémoire, le module acheté permet de gérer 12 lignes de LEDs
 Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711, clock, data); // création de l'objet tlc permettant de faire des actions sur le support LED (définis dans le .h)
-Guirlande g_R0 = Guirlande(&tlc,0,RED);
-Guirlande g_G0 = Guirlande(&tlc,0,GREEN);
-Guirlande g_R1 = Guirlande(&tlc,1,RED);
-  Guirlande g_G1 = Guirlande(&tlc,1,GREEN);
-Guirlande g_R3 = Guirlande(&tlc,3,RED);
-//Guirlande g_G3 = Guirlande(&tlc,3,GREEN); // 2 : numéro du bloc, 1 = G (0=R
+Guirlande eglise = Guirlande(&tlc,0,RED);
+Guirlande creche = Guirlande(&tlc,0,BLUE);
+Guirlande maison = Guirlande(&tlc,2,RED);
+Guirlande lampadaires = Guirlande(&tlc,1,BLUE);
+Guirlande grange = Guirlande(&tlc,3,RED);
 
 // Cette fonction n'est appelée qu'une seule fois
 // à la mise sous tension de l'Arduino
@@ -66,13 +63,13 @@ void setup(void)
   tlc.begin();
   tlc.write();
   
-  //g_R0.setup_rampe(0, 65535, 500);
-  g_R0.setup_scintille(55000,65000);
-  g_G0.setup_scintille(55000,65000);
-  g_R1.setup_scintille(45000,65000);
-  g_G1.setup_scintille(45000,65000);
-  g_R3.setup_scintille(55000,55000);
-  //g_G3.setup_scintille(45000,65000);
+  randomSeed(analogRead(0)); // Initialisation du générateur de nombres aléatoires
+  
+  eglise.setup_scintille(1,65000,65000);
+  creche.setup_scintille(1,65000,65000);
+  maison.setup_scintille(1,65000,65000);
+  lampadaires.setup_scintille(1,55000,65000);
+  grange.setup_scintille(1,65000,65000);
   
 }
 
@@ -82,13 +79,13 @@ void loop(void)
 { 
   player.play();  //do some leisurely job
   
-  att = g_R0.update();
-  att = g_G0.update();
-  att = g_R1.update();
-  att = g_G1.update();
-  att = g_R3.update();
-  //att = g_G3.update();
-  delay(att);
+  eglise.update();
+  creche.update();
+  maison.update();
+  lampadaires.update();
+  grange.update();
+  
+  delay(inc_tps);
 
 }
 

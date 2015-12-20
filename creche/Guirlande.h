@@ -14,7 +14,8 @@ private:
    int m_num_block;
    Couleur m_coul;
    Adafruit_TLC59711* m_tlc;
-   uint16_t m_niv_min, m_niv_max;
+   uint16_t m_niv_min, m_niv_max,m_nb_incr;
+   uint16_t m_chrono, m_lux;
    
 public:
    Guirlande(Adafruit_TLC59711* tlc, int num_block, Couleur coul);
@@ -24,9 +25,9 @@ public:
    void eteind();
    
    // lux_debut et lux_fin doivent être compris entre 0 et 65535
-   void setup_scintille(uint16_t lux_debut, uint16_t lux_fin);
+   void setup_scintille(uint16_t nb_incr, uint16_t lux_debut, uint16_t lux_fin);
    
-   int update();
+   void update();
    
 };
 

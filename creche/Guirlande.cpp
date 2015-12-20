@@ -5,6 +5,7 @@ Guirlande::Guirlande(Adafruit_TLC59711* tlc, int num_block, Couleur coul) {
    m_tlc = tlc;
    m_num_block = num_block;
    m_coul = coul;
+   m_chrono = 0;
 }
 
 
@@ -29,19 +30,23 @@ void Guirlande::eteind() {
    
 }
 
-void Guirlande::setup_scintille(uint16_t lux_debut, uint16_t lux_fin) {
+void Guirlande::setup_scintille(uint16_t nb_incr, uint16_t lux_debut, uint16_t lux_fin) {
    m_niv_min = lux_debut;
    m_niv_max = lux_fin;
+   m_nb_incr = nb_incr;
+   m_chrono  = m_nb_incr;
 }
 
-int Guirlande::update() {
+void Guirlande::update() {
    int lux;
    
-   lux = random(m_niv_min,m_niv_max);
+   m_chrono += 1;
+   if (m_chrono >= m_nb_incr) {
+      m_lux = random(m_niv_min,m_niv_max);
+      m_chrono = 0;
+   }
    
-   Guirlande::allume(lux);
-   
-   return 10;
+   Guirlande::allume(m_lux);
    
 }
 
