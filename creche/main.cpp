@@ -65,11 +65,11 @@ void setup(void)
   
   randomSeed(analogRead(0)); // Initialisation du générateur de nombres aléatoires
   
-  eglise.setup_scintille(1,65000,65000);
-  creche.setup_scintille(1,65000,65000);
-  maison.setup_scintille(1,65000,65000);
-  lampadaires.setup_scintille(1,55000,65000);
-  grange.setup_scintille(1,65000,65000);
+  eglise.setup_scintille(1,55535,65535);
+  creche.setup_scintille(1,55535,65535);
+  maison.setup_scintille(1,55535,65535);
+  lampadaires.setup_scintille(1,55535,65535);
+  grange.setup_scintille(1,55535,65535);
   
 }
 
