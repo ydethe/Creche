@@ -38,15 +38,15 @@ void Guirlande::setup_scintille(uint16_t nb_incr, uint16_t lux_debut, uint16_t l
 }
 
 void Guirlande::update() {
-   int lux;
+   uint16_t lux;
    
    m_chrono += 1;
    if (m_chrono >= m_nb_incr) {
-      m_lux = random(m_niv_min,m_niv_max);
+      lux = random(m_niv_min,m_niv_max);
       m_chrono = 0;
    }
    
-   Guirlande::allume(m_lux);
+   Guirlande::allume(lux);
    
 }
 

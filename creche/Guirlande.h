@@ -10,12 +10,12 @@ typedef enum {RED, GREEN, BLUE} Couleur;
 
 class Guirlande {
 private:
-   int m_compteur;
+   // int m_compteur;
    int m_num_block;
    Couleur m_coul;
    Adafruit_TLC59711* m_tlc;
    uint16_t m_niv_min, m_niv_max,m_nb_incr;
-   uint16_t m_chrono, m_lux;
+   uint16_t m_chrono;
    
 public:
    Guirlande(Adafruit_TLC59711* tlc, int num_block, Couleur coul);

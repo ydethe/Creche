@@ -41,6 +41,10 @@
 #define clock  9              // numéro du port de la carte mÃ¨re donnant le clock
 #define inc_tps 10            // temps minimal en millisecondes entre deux changement d'état des LEDs
 
+#define SCINT_PERIOD 1
+#define SCINT_MIN 35535
+#define SCINT_MAX 65535
+
 // La variable tlc désigne le driver de LEDs :
 // il fournit des fonctions toutes faites qui permettent de manipuler les lignes de LEDs
 // Pour mémoire, le module acheté permet de gérer 12 lignes de LEDs
@@ -65,18 +69,18 @@ void setup(void)
   
   randomSeed(analogRead(0)); // Initialisation du générateur de nombres aléatoires
   
-  eglise.setup_scintille(1,55535,65535);
-  creche.setup_scintille(1,55535,65535);
-  maison.setup_scintille(1,55535,65535);
-  lampadaires.setup_scintille(1,55535,65535);
-  grange.setup_scintille(1,55535,65535);
+  eglise.setup_scintille(SCINT_PERIOD,SCINT_MIN,SCINT_MAX);
+  creche.setup_scintille(SCINT_PERIOD,SCINT_MIN,SCINT_MAX);
+  maison.setup_scintille(SCINT_PERIOD,SCINT_MIN,SCINT_MAX);
+  lampadaires.setup_scintille(SCINT_PERIOD,SCINT_MIN,SCINT_MAX);
+  grange.setup_scintille(SCINT_PERIOD,SCINT_MIN,SCINT_MAX);
   
 }
 
 // Cette fonction est appelée en boucle à la fréquence du processeur (16MHz)
 // D'où la diffculté d'avoir une heure fiable
 void loop(void)
-{ 
+{
   player.play();  //do some leisurely job
   
   eglise.update();
@@ -84,6 +88,12 @@ void loop(void)
   maison.update();
   lampadaires.update();
   grange.update();
+
+  // eglise.allume(65535);
+  // creche.allume(65535);
+  // maison.allume(65535);
+  // lampadaires.allume(65535);
+  // grange.allume(65535);
   
   delay(inc_tps);
 
