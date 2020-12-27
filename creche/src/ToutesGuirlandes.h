@@ -1,6 +1,3 @@
-#include <Adafruit_TLC59711.h> // carte support LED
-#include <SPI.h>               // bus entre carte mere et le support LED (circuit TLC 59711)
-
 #include "Guirlande.h"
 
 #ifndef _TOUTES_GUIRLANDE_H
@@ -25,14 +22,13 @@ private:
 
 public:
     ToutesGuirlandes(Adafruit_TLC59711*);
-    ~ToutesGuirlandes();
 
     // lux_debut et lux_fin doivent être compris entre 0 et 65535
-    void setup_scintille(uint16_t nb_incr, uint16_t lux_debut, uint16_t lux_fin);
+    void setup_scintille(uint16_t lux_debut, uint16_t lux_fin);
    
     void update();
 
-    void allume();
+    void allume(uint16_t level=65535);
 
 };
 
