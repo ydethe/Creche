@@ -12,7 +12,7 @@
 
 #define inc_tps 100           // attente en fin de boucle principale en millisecondes
 
-#define SCINT_MIN 30000
+#define SCINT_MIN 40000
 #define SCINT_MAX 65535
 
 Adafruit_TLC59711 tlc = Adafruit_TLC59711(NUM_TLC59711, clock, data);
