@@ -1,16 +1,20 @@
 #include <arduino.h>
 #include "Adafruit_TLC59711.h"
 #include <SPI.h>
-#include <SD.h>                // lecteur de carte SD
-#include <MusicPlayer.h>       // lecteur mp3
+#include <SD.h>          // lecteur de carte SD
+#include <MusicPlayer.h> // lecteur mp3
 
 #include "ToutesGuirlandes.h"
 
-#define NUM_TLC59711 1        // nombre de support LED chainés en série 
-#define clock 2
-#define data  9
+// Voir tuto driver LED :
+// https://learn.adafruit.com/tlc5947-tlc59711-pwm-led-driver-breakout/python-circuitpython
+// Music Shield V2.0 Doc mise à jour : https://wiki.seeedstudio.com/Music_Shield_V2.2/
 
-#define inc_tps 100           // attente en fin de boucle principale en millisecondes
+#define NUM_TLC59711 1 // nombre de support LED chainés en série 
+#define clock 2 // Broche Arduino connectée à la broche CI du driver
+#define data  9 // Broche Arduino connectée à la broche DI du driver
+
+#define inc_tps 100 // attente en fin de boucle principale en millisecondes
 
 #define SCINT_MIN 40000
 #define SCINT_MAX 65535
